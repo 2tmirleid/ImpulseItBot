@@ -35,3 +35,8 @@ class EditBug(StatesGroup):
     front_comment = State()
     back_comment = State()
     qa_comment = State()
+
+
+class SearchBug(StatesGroup):
+    id = State()
+    date = State()

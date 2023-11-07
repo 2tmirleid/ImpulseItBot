@@ -7,4 +7,6 @@ class Project(StatesGroup):
     all_or_date = State()
 
 
+class NewProject(StatesGroup):
+    new_name = State()
 
