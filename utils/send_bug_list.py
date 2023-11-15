@@ -3,27 +3,28 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 async def send_bug_list(msg, bug):
     await msg.answer_photo(photo=f'{bug[14]}',
-                           caption=f'<b>ID бага:</b> {bug[0]}\n' +
-                                   f'<b>Категория бага:</b> {bug[1]}\n' +
-                                   f'<b>Платформа:</b> {bug[2]}\n' +
-                                   f'<b>Девайс:</b> {bug[3]}\n' +
-                                   f'<b>Разрешение:</b> {bug[4]}\n' +
-                                   f'<b>Сайт:</b> {bug[5]}\n' +
-                                   f'<b>Ссылка на страницу бага:</b> {bug[6]}\n' +
-                                   f'<b>Приоритет:</b> {bug[7]}\n' +
-                                   f'<b>Дата бага:</b> {bug[8]}\n' +
-                                   f'<b>Воспроизводимость:</b> {bug[9]}\n' +
-                                   f'<b>Браузер:</b> {bug[10]}\n' +
-                                   f'<b>Ожидаемый результат:</b> {bug[11]}\n' +
-                                   f'<b>Шаги воспроизведения:</b> \n{bug[12]}\n' +
-                                   f'<b>Фактический результат:</b> {bug[13]}\n' +
-                                   f'<b>Статус Фронт:</b> {bug[15]}\n' +
-                                   f'<b>Статус Бэк:</b> {bug[16]}\n' +
-                                   f'<b>Готовность:</b> {bug[17]}\n' +
-                                   f'<b>Комментарий ПМ:</b> {bug[18]}\n' +
-                                   f'<b>Комментарий Фронт:</b> {bug[19]}\n' +
-                                   f'<b>Комментарий Бэк:</b> {bug[20]}\n' +
-                                   f'<b>Комментарий Тест:</b> {bug[21]}\n',
+                           caption=f'<b>ID бага:</b> <i>{bug[0]}</i>\n' +
+                                   f'<b>Категория бага:</b> <i>{bug[1]}</i>\n' +
+                                   f'<b>Платформа:</b> <i>{bug[2]}</i>\n' +
+                                   f'<b>Девайс:</b> <i>{bug[3]}</i>\n' +
+                                   f'<b>Разрешение:</b> <i>{bug[4]}</i>\n' +
+                                   f'<b>Сайт:</b> <i>{bug[5]}</i>\n' +
+                                   f'<b>Ссылка на страницу бага:</b> <i>{bug[6]}</i>\n' +
+                                   f'<b>Приоритет:</b> <i>{bug[7]}</i>\n' +
+                                   f'<b>Дата бага:</b> <i>{bug[8]}</i>\n' +
+                                   f'<b>Воспроизводимость:</b> <i>{bug[9]}</i>\n' +
+                                   f'<b>Браузер:</b> <i>{bug[10]}</i>\n' +
+                                   f'<b>Ожидаемый результат:</b> <i>{bug[11]}</i>\n' +
+                                   f'<b>Шаги воспроизведения:</b> \n<i>{bug[12]}</i>\n' +
+                                   f'<b>Фактический результат:</b> <i>{bug[13]}</i>\n' +
+                                   f'<b>Статус Фронт:</b> <i>{bug[15]}</i>\n' +
+                                   f'<b>Статус Бэк:</b> <i>{bug[16]}</i>\n' +
+                                   f'<b>Готовность:</b> <i>{bug[17]}</i>\n' +
+                                   f'<b>Комментарий ПМ:</b> <i>{bug[18]}</i>\n' +
+                                   f'<b>Комментарий Фронт:</b> <i>{bug[19]}</i>\n' +
+                                   f'<b>Комментарий Бэк:</b> <i>{bug[20]}</i>\n' +
+                                   f'<b>Комментарий Тест:</b> <i>{bug[21]}</i>\n',
                            reply_markup=InlineKeyboardMarkup(
-                               inline_keyboard=[[InlineKeyboardButton(text='Редактировать', callback_data=f'btn_edit-{bug[0]}')]]),
+                               inline_keyboard=[[InlineKeyboardButton(text='Редактировать', callback_data=f'btn_edit-{bug[0]}')],
+                                                [InlineKeyboardButton(text='Удалить', callback_data=f'btn_del-{bug[0]}')]]),
                            parse_mode='HTML')

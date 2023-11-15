@@ -58,7 +58,7 @@ async def get_new_bug_priority(msg: Message, state: FSMContext):
 @router.message(StateFilter(Bug.priority), F.text)
 async def get_new_bug_date(msg: Message, state: FSMContext):
     await state.update_data(priority=msg.text)
-    await msg.answer('Введите дату обнаружения бага')
+    await msg.answer('Введите дату обнаружения бага в формате дд.мм.гггг')
     await state.set_state(Bug.date_of_bug)
 
 

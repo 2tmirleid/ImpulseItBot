@@ -59,7 +59,7 @@ async def edit_task(msg, bug_id, project_name, front_status, back_status, readin
     global cursor
     try:
         cursor.execute(
-            f"""UPDATE {project_name.lower()} SET front_status = '{front_status}', back_status = '{back_status}',
+            f"""UPDATE {project_name} SET front_status = '{front_status}', back_status = '{back_status}',
              readiness = '{readiness}', pm_comment = '{pm_comment}', front_comment = '{front_comment}',
              back_comment = '{back_comment}', qa_comment = '{qa_comment}' WHERE id = '{bug_id}'"""
         )
@@ -68,6 +68,17 @@ async def edit_task(msg, bug_id, project_name, front_status, back_status, readin
 
     except psycopg2.errors.UniqueViolation as err:
         await msg.answer('Упс, похоже, что при просмотре возникла какая-то ошибка')
+        print(err)
+
+
+async def delete_bug_by_id(msg, bug_id, project_name):
+    global cursor
+    try:
+        cursor.execute(
+            f"""DELETE FROM {project_name} WHERE id = {bug_id}"""
+        )
+        conn.commit()
+    except psycopg2.errors.UniqueViolation as err:
         print(err)
 
 
@@ -82,6 +93,19 @@ async def get_bug_lists_by_date(msg, project_name, date_of_bug):
         for bug in bugs:
             await send_bug_list.send_bug_list(msg, bug)
             await msg.answer('Чтобы вернуться назад, нажмите кнопку "Назад"', reply_markup=backspace_keyboard.rpl_kb)
+    except psycopg2.errors.UniqueViolation as err:
+        await msg.answer('Упс, похоже, что при просмотре возникла какая-то ошибка')
+        print(err)
+
+
+async def export_to_excel(msg, project_name):
+    global cursor
+    try:
+        cursor.execute(
+            f"""SELECT * FROM тест"""
+        )
+        bugs = cursor.fetchall()
+        return bugs
     except psycopg2.errors.UniqueViolation as err:
         await msg.answer('Упс, похоже, что при просмотре возникла какая-то ошибка')
         print(err)

@@ -48,15 +48,6 @@ async def get_project_data(msg: Message, state: FSMContext):
         await state.set_state(SearchBug.date)
 
 
-@router.callback_query(lambda query: query.data.startswith('btn_edit'))
-async def edit_task(clb_query: types.CallbackQuery, state: FSMContext):
-    bug_id = clb_query.data[-1]
-    await state.set_state(EditBug.id)
-    await state.update_data(id=bug_id)
-    await clb_query.message.answer('Выберите фронт статус', reply_markup=bug_front_status_keyboard.rpl_kb)
-    await state.set_state(EditBug.front_status)
-
-
 @router.message(StateFilter(SearchBug.date), F.text)
 async def get_bug_list_by_date(msg: Message, state: FSMContext):
     await state.update_data(date=msg.text)

@@ -1,14 +1,21 @@
-from aiogram import Router, F
+from aiogram import Router, F, types
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
 from controllers import bug_controller
-from keyboards.new_bug import bug_back_status_keyboard, bug_readiness_keyboard
+from keyboards.new_bug import bug_back_status_keyboard, bug_readiness_keyboard, bug_front_status_keyboard
 from states.bug_state import EditBug
 
 router: Router = Router()
 
+@router.callback_query(lambda query: query.data.startswith('btn_edit'))
+async def edit_task(clb_query: types.CallbackQuery, state: FSMContext):
+    bug_id = clb_query.data[-1]
+    await state.set_state(EditBug.id)
+    await state.update_data(id=bug_id)
+    await clb_query.message.answer('Выберите фронт статус', reply_markup=bug_front_status_keyboard.rpl_kb)
+    await state.set_state(EditBug.front_status)
 
 @router.message(StateFilter(EditBug.front_status), F.text)
 async def get_bug_edit_front_status(msg: Message, state: FSMContext):
